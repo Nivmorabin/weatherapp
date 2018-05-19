@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html ng-app="comeet-test">
+
+<head>
+  <link data-require="angular.js@1.5.0" data-semver="1.5.0" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+  />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+    crossorigin="anonymous">
+
+  <link rel="stylesheet" href="app/styles/style.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+
+  <script src="app/app.js"></script>
+  <script src="app/services/countriesService.js"></script>
+  <script src="app/services/weatherService.js"></script>
+  <script src="app/controllers/weatherController.js"></script>
+
+</head>
+
+<body ng-controller="weatherController as weather">
+  <div class="jumbotron">
+    <div class="container-fluid">
+      <h1>Welcome to the Ideal Weather App</h1>
+      <p>Please select the gender of search:
+        <select ng-model="weather.gender">
+          <option value="1">Male</option>
+          <option value="2">Female</option>
+        </select>
+      </p>
+      <br>
+      <p class="text-center">
+        <a class="btn btn-primary btn-lg" href="#" role="button" ng-click="weather.getIdealWeatherCandidates()">Get results!</a>
+      </p>
+      <span class="pull-right">
+        by: Niv Moran-Rabin 2018
+      </span>
+    </div>
+  </div>
+  <div class="container-fliud">
+    <div class="row" ng-if="weather.searchStarted===true">
+      <div class="col-xs-12 text-center" ng-if="loading===true">
+        <i class="fa fa-cog fa-spin fa-5x"></i>
+      </div>
+      <div class="col-xs-12 text-center">
+        <h1>Found: {{idealWeatherCandidates.length}}</h1>
+      </div>
+    </div>
+  </div>
+  <div class="container" ng-if="idealWeatherCandidates.length>0">
+    <div class="row">
+      <div class="col-xs-12" ng-repeat="candidate in idealWeatherCandidates">
+        <div class="row card extra-margin-bottom">
+          <div class="col-xs-1 row-number">
+            <h2>#{{$index+1}}</h2>
+          </div>
+          <div class="col-xs-5">
+            <div class="row">
+              <div class="col-xs-12">
+                <h3>Station Name: </h3> {{candidate.name}}
+              </div>
+              <div class="col-xs-12">
+                <h3>Station Id: </h3> {{candidate.id}}
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-5">
+            <div class="row extra-margin-bottom">
+              <div class="col-xs-12">
+                <h3>Temperature: </h3> {{candidate.main.temp}}
+              </div>
+              <div class="col-xs-12">
+                <h3>Humidity: </h3> {{candidate.main.humidity}}%
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
